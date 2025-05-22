@@ -1,26 +1,33 @@
-// src/main/kotlin/es/prog2425/calclog/Main.kt
-package es.prog2425.calclog
+package org.example
 
+import data.dao.CalculoDao
+import data.dao.ErrorDao
 import es.prog2425.calclog.app.Controlador
-import es.prog2425.calclog.data.dao.CalculoDao
-import es.prog2425.calclog.data.dao.ErrorDao
-import es.prog2425.calclog.data.db.AppDatabase
+import data.db.AppDatabase
 import es.prog2425.calclog.service.ServicioCalc
-import es.prog2425.calclog.service.ServicioLogH2
 import es.prog2425.calclog.ui.Consola
+import org.example.service.ServicioLogH2
 
 fun main(args: Array<String>) {
-    // Inicializa el DataSource de H2
-    val conn = AppDatabase.connection
-    val calculoDao = CalculoDao(conn)
-    val errorDao = ErrorDao(conn)
-
-    // Inyecta los DAOs en servicio de log sobre H2
-    val servicioLog = ServicioLogH2(calculoDao, errorDao)
 
     // Instancia UI y lógica de cálculo
     val consola = Consola()
     val servicioCalc = ServicioCalc()
+
+    val dataSource = try {
+        AppDatabase.getDs()
+    } catch (e: IllegalStateException) {
+        consola.mostrarError("Problemas al crear el DataSource: ${e.message}")
+        return // Se acaba el programa porque no puedo interactuar con la base de datos
+    }
+
+    // Inicializa el DataSource de H2
+    val calculoDao = CalculoDao()
+    val errorDao = ErrorDao()
+
+    // Inyecta los DAOs en servicio de log sobre H2
+    val servicioLog = ServicioLogH2(calculoDao, errorDao)
+
 
     // Monta el controlador con tus dependencias
     val controlador = Controlador(consola, servicioCalc, servicioLog)

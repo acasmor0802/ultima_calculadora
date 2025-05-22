@@ -1,8 +1,9 @@
-package es.prog2425.calclog.service
+package org.example.service
 
-import es.prog2425.calclog.data.dao.CalculoDao
-import es.prog2425.calclog.data.dao.ErrorDao
+import data.dao.CalculoDao
+import data.dao.ErrorDao
 import es.prog2425.calclog.model.Calculo
+import es.prog2425.calclog.service.IServicioLog
 
 /**
  * Implementación de IServicioLog usando base de datos H2.

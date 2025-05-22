@@ -1,13 +1,14 @@
-package data.dao
+package org.example.data.dao
 
 import data.db.AppDatabase
 import java.sql.SQLException
+import javax.sql.DataSource
 
-class CalculoDao() {
+class CalculoDaoDs(private val ds: DataSource) {
 
     fun insertarCalculo(numero1: Double, operador: String, numero2: Double, resultado: Double) {
         try {
-            AppDatabase.getConnection().use { conn ->
+            ds.connection.use { conn ->
                 val sql = "INSERT INTO calculos (numero1, operador, numero2, resultado) VALUES (?, ?, ?, ?)"
                 conn.prepareStatement(sql).use { stmt ->
                     stmt.setDouble(1, numero1)
@@ -24,7 +25,7 @@ class CalculoDao() {
 
     fun obtenerTodos(): List<String> {
         try {
-            AppDatabase.getConnection().use { conn ->
+            ds.connection.use { conn ->
                 val sql = "SELECT numero1, operador, numero2, resultado, timestamp FROM calculos ORDER BY timestamp DESC"
                 conn.prepareStatement(sql).use { stmt ->
                     stmt.executeQuery().use { rs ->

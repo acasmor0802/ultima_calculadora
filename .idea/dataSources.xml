@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="sa" uuid="fedca8c2-f70f-4f18-8cf6-a0edd4b54931">
+    <data-source source="LOCAL" name="calculadoradb" uuid="2ae10270-640c-46f3-af73-bae2ee53c9ce">
       <driver-ref>h2.unified</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.h2.Driver</jdbc-driver>
-      <jdbc-url>jdbc:h2:~/db</jdbc-url>
+      <jdbc-url>jdbc:h2:./db/calculadoradb</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />

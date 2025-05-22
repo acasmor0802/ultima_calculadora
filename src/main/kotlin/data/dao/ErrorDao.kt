@@ -1,24 +1,42 @@
-package es.prog2425.calclog.data.dao
+package data.dao
 
-class ErrorDao(private val conn: java.sql.Connection) {
+import data.db.AppDatabase
+import java.sql.SQLException
+
+class ErrorDao() {
 
     fun insertarError(mensaje: String) {
-        val sql = "INSERT INTO errores (mensaje) VALUES (?)"
-        conn.prepareStatement(sql).use {
-            it.setString(1, mensaje)
-            it.executeUpdate()
+        try {
+            AppDatabase.getConnection().use { conn ->
+                val sql = "INSERT INTO errores (mensaje) VALUES (?)"
+                conn.prepareStatement(sql).use {
+                    it.setString(1, mensaje)
+                    it.executeUpdate()
+                }
+            }
+        } catch (e: SQLException) {
+            throw SQLException("")
         }
     }
 
     fun obtenerErrores(): List<String> {
-        val sql = "SELECT mensaje, timestamp FROM errores ORDER BY timestamp DESC"
-        conn.prepareStatement(sql).use {
-            val rs = it.executeQuery()
-            val errores = mutableListOf<String>()
-            while (rs.next()) {
-                errores.add("${rs.getTimestamp("timestamp")} - ${rs.getString("mensaje")}")
+
+        try {
+            AppDatabase.getConnection().use { conn ->
+                val sql = "SELECT mensaje, timestamp FROM errores ORDER BY timestamp DESC"
+                conn.prepareStatement(sql).use { stmt ->
+                    stmt.executeQuery().use { rs ->
+                        val errores = mutableListOf<String>()
+                        while (rs.next()) {
+                            errores.add("${rs.getTimestamp("timestamp")} - ${rs.getString("mensaje")}")
+                        }
+                        return errores
+                    }
+                }
             }
-            return errores
+        } catch (e: SQLException) {
+            throw SQLException("")
         }
+
     }
 }
