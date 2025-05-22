@@ -6,6 +6,4 @@ interface IServicioLog {
     fun registrarEntradaLog(mensaje: String)
     fun registrarEntradaLog(calculo: Calculo)
     fun getInfoUltimoLog(): List<String>
-    fun crearNuevoLog()
-    fun crearRutaLog(ruta: String): Boolean
 }
