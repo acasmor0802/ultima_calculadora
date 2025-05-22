@@ -33,7 +33,6 @@ class ServicioLogH2(
 
     /**
      * Devuelve todas las entradas de cálculos y errores.
-     * Se pueden combinar y ordenar externamente si se desea.
      */
     override fun getInfoUltimoLog(): List<String> {
         val calcLogs = calculoDao.obtenerTodos()
