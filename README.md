@@ -1,8 +1,7 @@
 Para este ejercicio de la calculadora, seleccione la calculadora solución que mandaste.
 Le elimine todo lo relacionado con los logs ya existentes pues los iba a hacer en una bbdd.
 Despues había creado dos carpetas en data:
-- ## Una con db, que contiene AppDatabase, en la que se crean 2 tablas:
-- ### Una para los cálculos, y otra para los errores. Además de crear las conexiones.
+- ## Una con db, que contiene AppDatabase, en la que se crean las conexiones en un objeto:
 - ## Una carpeta dao en la que se ejecutaran las consultas en SQL sobre las bbdd. 
 - ### La clase CalculoDao, recibe una conexion, y sus metodos son:
 - #### ```fun insertarCalculo(numero1: Double, operador: String, numero2: Double, resultado: Double)``` que recibe el calculo y mediante un insert, lo almacena en la bbdd añadiendo tambien su fecha ya que al crear la tabla se escribe ```timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP``` que lo que hace es almacenar la fecha en la que se hace el insert. Retornaria una lista de strings llamada resultados.
